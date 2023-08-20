@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<th:block th:fragment="headerFragment">
+    <div class='sticky-header show'>
+        <div class='nav-bg text-center'>
+            <div class='in-nav'>
+                <div id="nav-le">
+                    <a href="/"><img class = "logo" src='/img/logo.png'></a>
+                    <div>
+                        <a href="/sign" id="sign">회원가입</a>
+                    </div>
+                    <div>
+                        <a href="/login" id="log">로그인</a>
+                    </div>
+                </div>
+                <ul class="nav-list">
+                    <li><a href='/'>게시판</a></li>
+                    <li><a href='/shop'>상점</a></li>
+                    <li><a href='/intro'>소개</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

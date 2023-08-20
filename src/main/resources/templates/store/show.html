@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/show.css">
+</head>
+<body>
+<th:block th:replace="/fragments/header :: headerFragment"/>
+<div id="top">
+    <form method="post" action="/add_basket">
+        <div class="t-content">
+            <img th:src="@{'/' + ${g.goods_url}}" class="t-img"/>
+            <div class="t-section">
+                <div class="t-name" th:text="${g.goods_name}"/>
+                <div class="price" th:text="${g.price} + '₩'"/>
+                <div class="q-text">Quantity</div>
+                <input type="number" name="quantity" value=1 class="number"/>
+                <button class="add-btn">Add</button>
+                <div class="c-text"  th:text="${g.content}"/>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
