@@ -25,7 +25,7 @@ public class RController {
         if (user == null) {
             message = "<script>alert('아이디나 비밀번호가 맞지 않습니다.');location.href='/login';</script>";
         } else {
-            message = "<script>alert('로그인 되었습니다!'); history.go(-1);</script>";
+            message = "<script>alert('로그인 되었습니다!');location.href='/';</script>";
             HttpSession session = req.getSession();
             session.setAttribute("loginUser", user);
             session.setMaxInactiveInterval(60 * 30);
@@ -51,6 +51,6 @@ public class RController {
         service.basketInsert(b);
         return " <script>" +
                 "if(confirm('장바구니에 추가하였습니다. 이동하시겠습니까?')) " +
-                "location.href='/basket'; else {history.go(-3); location.reload();} </script>";
+                "location.href='/basket'; else {history.go(-1); location.reload();} </script>";
     }
 }

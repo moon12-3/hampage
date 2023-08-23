@@ -32,6 +32,6 @@
     </insert>
     
     <select id="basketList" resultType="kr.hs.study.Test.dto.JoinBasket">
-        select goods_url, goods_name, b.price, category, order_ok from basket b join goods using(goods_id) where user_id=#{id}
+        select order_id, goods_url, goods_name, b.price, category, order_ok from basket b join goods using(goods_id) where user_id=#{id}
     </select>
 </mapper>

@@ -5,41 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('input[type="checkbox"]').change(function() {
+                var orderId = $(this).data('orderId');
+                var orderOk = $(this).prop('checked');
+
+                $.post('/updateOrder', { orderId: orderId, orderOk: orderOk }, function(data) {
+                    console.log('Update successful');
+                });
+            });
+        });
+    </script>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/basket.css">
+    <link rel="stylesheet" href="/css/test.css">
 </head>
 <body>
 <th:block th:replace="/fragments/header :: headerFragment(${user})"/>
 <div id ="top">
     <div id="cart-text">My cart</div>
     <hr/>
-   <table class='tb'>
-    <thead>
-    <tr>
-        <th scope='col'>Image</th>
-        <th scope='col'>Name</th>
-        <th scope='col'>Price</th>
-        <th scope='col'>Category</th>
-        <th scope='col'>Check</th>
-        <th scope='col'>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="b:${basket}">
-        <td><img th:src="@{'/' + ${b.goods_url}}" class='img-content'></td>
-        <td th:text="${b.goods_name}"></td>
-        <td th:text="${b.price}"></td>
-        <td th:text="${b.category}"></td>
-        <th:block th:if="${b.order_ok == '1'}">
-            <td><input type='checkbox' checked></td>
-        </th:block>
-        <th:block th:unless="${b.order_ok == '1'}">
-            <td><input type='checkbox'></td>
-        </th:block>
-        <td><a th:href="@{'delete/' + ${order_id}}">삭제</a></td>
-    </tr>
-    </tbody>
-   </table>
+    <th:block th:unless="${basket == null}">
+       <table class='tb'>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th scope='col'>Image</th>
+            <th scope='col'>Name</th>
+            <th scope='col'>Price</th>
+            <th scope='col'>Category</th>
+            <th scope='col'>Check</th>
+            <th scope='col'>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="b:${basket}">
+            <td th:text="b.order_id"></td>
+            <td><img th:src="@{'/' + ${b.goods_url}}" class='img-content'></td>
+            <td th:text="${b.goods_name}"></td>
+            <td th:text="${b.price}"></td>
+            <td th:text="${b.category}"></td>
+            <th:block th:if="${b.order_ok == '1'}">
+                <td><input type='checkbox' checked></td>
+            </th:block>
+            <th:block th:unless="${b.order_ok == '1'}">
+                <td><input type='checkbox' th:data-order-id=""></td>
+            </th:block>
+            <td><a th:href="@{'delete/' + ${order_id}}">삭제</a></td>
+        </tr>
+        </tbody>
+       </table>
+        <button><a href="/buy">구매하러 가기</a></button>
+    </th:block>
+    <th:block th:if="${basket == null}">
+        <div class='content'>Oops! Your cart is Empty.</div>
+    </th:block>
 <hr/>
 </div>
 </body>

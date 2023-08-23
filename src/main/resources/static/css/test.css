@@ -2,7 +2,7 @@
     /* outline: solid 1px red; */
  }
 
- .mar {
+.mar {
      height:40px;
  }
 
@@ -18,7 +18,6 @@ a{
      margin: 0;
      padding:0;
      scroll-behavior: smooth;
-     font-family: 나눔스퀘어;
  }
 
  html::-webkit-scrollbar {
@@ -128,7 +127,7 @@ a{
 
 #top {
     width:80vw;
-    margin : 0 auto;
+    margin : 50px auto;
 }
 
 .img-content {

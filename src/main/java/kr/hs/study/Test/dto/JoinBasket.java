@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class JoinBasket {
+    int order_id;
     String goods_url;
     String goods_name;
     String price;
