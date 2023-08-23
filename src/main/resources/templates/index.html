@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<th:block th:replace="fragments/header :: headerFragment"/>
+<th:block th:replace="fragments/header :: headerFragment(${user})"/>
 <div class="container mt-2">
     <!-- board list area -->
     <div id="board-list">

@@ -1,8 +1,6 @@
 package kr.hs.study.Test.service;
 
-import kr.hs.study.Test.dto.Goods;
-import kr.hs.study.Test.dto.Post;
-import kr.hs.study.Test.dto.Users;
+import kr.hs.study.Test.dto.*;
 import kr.hs.study.Test.mapper.HamMapper;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +39,15 @@ public class HamServiceImpl implements HamService {
     @Override
     public Goods showGoods(String id) {
         return mapper.showGoods(id);
+    }
+
+    @Override
+    public void basketInsert(Basket dto) {
+        mapper.basketInsert(dto);
+    }
+
+    @Override
+    public List<JoinBasket> basketList(String id) {
+        return mapper.basketList(id);
     }
 }

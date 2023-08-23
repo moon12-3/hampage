@@ -7,40 +7,21 @@
     <link rel="stylesheet" href="css/store.css">
 </head>
 <body>
-<header class='sticky-header show'>
-    <div class='nav-bg'>
-        <div class='in-nav'>
-            <div id="nav-le">
-                <a href="/"><img class = "logo" src='./img/logo.png'></a>
-                <div>
-                    <a href="/sign" id="sign">회원가입</a>
-                </div>  
-                <div>
-                    <a href="/login" id="log">로그인</a>
-                </div>
-            </div>
-            <ul class="nav-list">
-                <li><a href='/'>게시판</a></li>
-                <li><a href='/shop'>상점</a></li>
-                <li><a href='/intro'>소개</a></li>
-            </ul>
+<th:block th:replace="/fragments/header :: headerFragment"/>
+<div id="s-container">
+    <form method="post" action="/find">
+        <input name="fname" type="text" placeholder="상품명을 검색하세요" id="s-content">
+        <button type="submit" id="s-button"><img src='./img/search.png' style="width: 20px;"></button>
+    </form>
+</div>
+<div id="first">
+    <div class="f-container" th:each="goods:${list}">
+        <div class="g-img" th:style="'background-image:url('+ @{${goods.goods_url}} +');'"></div>
+        <div class="g-text">
+            <div th:text="${goods.goods_name}"></div>
+            <div class="price" th:text="${goods.price}"></div>
         </div>
     </div>
-    <div id="s-container">
-        <form method="post" action="/find">
-            <button type="submit" id="s-button"><img src='./img/search.png' style="width: 20px;"></button>
-            <input type="text" placeholder="상품명을 검색하세요" id="s-content" th:value="${name}">
-        </form>
-    </div>
-    <div id="first">
-        <div class="f-container" th:each="goods:${list}">
-            <div class="g-img" th:style="'background-image:url('+ @{${goods.goods_url}} +');'"></div>
-            <div class="g-text">
-                <div th:text="${goods.goods_name}"></div>
-                <div class="price" th:text="${goods.price}"></div>
-            </div>  
-        </div>
-    </div>
-</header>
+</div>
 </body>
 </html>

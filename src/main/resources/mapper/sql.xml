@@ -23,5 +23,15 @@
     <select id="showGoods" resultType="kr.hs.study.Test.dto.Goods">
         select * from goods where goods_id = #{id}
     </select>
-
+    <insert id="basketInsert" parameterType="kr.hs.study.Test.dto.Basket">
+        <selectKey keyProperty="order_id" resultType="int" order="BEFORE">
+            select basket_id.nextval from dual
+        </selectKey>
+        INSERT INTO basket (order_id, goods_id, user_id, price, order_cnt)
+        values(#{order_id}, #{goods_id}, #{user_id}, #{price}, #{order_cnt})
+    </insert>
+    
+    <select id="basketList" resultType="kr.hs.study.Test.dto.JoinBasket">
+        select goods_url, goods_name, b.price, category, order_ok from basket b join goods using(goods_id) where user_id=#{id}
+    </select>
 </mapper>

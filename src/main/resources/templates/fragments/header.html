@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<th:block th:fragment="headerFragment">
+<th:block th:fragment="headerFragment(user)">
     <div class='sticky-header show'>
         <div class='nav-bg text-center'>
             <div class='in-nav'>
                 <div id="nav-le">
                     <a href="/"><img class = "logo" src='/img/logo.png'></a>
+                    <th:block th:if="${user == null}">
                     <div>
                         <a href="/sign" id="sign">회원가입</a>
                     </div>
                     <div>
                         <a href="/login" id="log">로그인</a>
                     </div>
+                    </th:block>
+                    <th:block th:unless="${user == null}">
+                        <div>
+                            <span id="sign" th:text="${user.user_name} + '님'"></span>
+                        </div>
+                        <div>
+                            <a href="/basket" id="log">장바구니</a>
+                        </div>
+                    </th:block>
                 </div>
                 <ul class="nav-list">
                     <li><a href='/'>게시판</a></li>

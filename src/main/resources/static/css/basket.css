@@ -25,6 +25,11 @@ a{
      display: none;
  }
 
+.tb {
+    width:80vw;
+    text-align:center;
+}
+
  .main-logo {
      margin:0 auto;
      width:150px;
@@ -122,7 +127,7 @@ a{
 }
 
 #top {
-    width:60vw;
+    width:80vw;
     margin : 0 auto;
 }
 

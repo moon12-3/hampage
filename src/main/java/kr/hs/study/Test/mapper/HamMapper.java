@@ -1,8 +1,6 @@
 package kr.hs.study.Test.mapper;
 
-import kr.hs.study.Test.dto.Goods;
-import kr.hs.study.Test.dto.Post;
-import kr.hs.study.Test.dto.Users;
+import kr.hs.study.Test.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,4 +21,8 @@ public interface HamMapper {
     public List<Goods> find(String name);   // 상품 검색 결과 불러오기(index 사용)
 
     public Goods showGoods(String id);
+
+    public void basketInsert(Basket dto);
+
+    public List<JoinBasket> basketList(String id);
 }
