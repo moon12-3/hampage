@@ -53,4 +53,9 @@ public class RController {
                 "if(confirm('장바구니에 추가하였습니다. 이동하시겠습니까?')) " +
                 "location.href='/basket'; else {history.go(-1); location.reload();} </script>";
     }
+
+    @GetMapping("/intro")
+    String intro() {
+        return "햄슈터 햄슈터 즐거운 노래";
+    }
 }

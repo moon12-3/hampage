@@ -56,7 +56,7 @@
         update post set post_title=#{post_title}, post_content=#{post_content} where post_id=#{post_id}
     </update>
     <select id="chatList" resultType="kr.hs.study.Test.dto.Chat">
-        select * from chat where post_id=#{id} order by chat_id
+        select * from chat where post_id=#{id} order by chat_id DESC
     </select>
     <insert id="insertChat" parameterType="kr.hs.study.Test.dto.Chat">
         insert into chat(post_id, user_id, chat_content) values(#{post_id}, #{user_id}, #{chat_content})
