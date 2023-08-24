@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rollup Results</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/test.css">
+</head>
+<body>
+<div id ="top">
+    <div id="cart-text">구매할 물건의 합계입니다.</div>
+    <hr/>
+    <table class='tb'>
+        <tr>
+            <th>Category</th>
+            <th>Goods Name</th>
+            <th>Total Price</th>
+            <th>Total Order Count</th>
+        </tr>
+        <tr th:each="result : ${rollupResults}">
+            <td th:text="${result['CATEGORY']} ?: '총합계'"></td>
+            <td th:text="${result['GOODS_NAME']}"></td>
+            <td th:text="${result['TOTAL_PRICE']}"></td>
+            <td th:text="${result['TOTAL_ORDER_CNT']}"></td>
+        </tr>
+    </table>
+    </hr>
+</div>
+
+</body>
+</html>

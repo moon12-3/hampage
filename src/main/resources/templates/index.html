@@ -18,35 +18,25 @@
                 <tr>
                     <th scope="col" class="th-num">번호</th>
                     <th scope="col" class="th-title">제목</th>
+                    <th scope="col" class="th-title">작성자</th>
                     <th scope="col" class="th-date">등록일</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>3</td>
+                <tr th:each="p:${post}">
+                    <td th:text="${p.post_id}"></td>
                     <th>
-                        <a href="#!">[공지사항] 개인정보 처리방침 변경안내처리방침</a>
-                        <p>테스트</p>
+                        <a th:href="@{'view/' + ${p.post_id}}" th:text="${p.post_title}"></a>
                     </th>
-                    <td>2017.07.13</td>
-                </tr>
-
-                <tr>
-                    <td>2</td>
-                    <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                    <td>2017.06.15</td>
-                </tr>
-
-                <tr>
-                    <td>1</td>
-                    <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                    <td>2017.06.15</td>
+                    <td th:text="${p.user_id}"></td>
+                    <td th:text="${p.post_date}"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<a href="/write" class="on">글 작성하기</a>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </html>

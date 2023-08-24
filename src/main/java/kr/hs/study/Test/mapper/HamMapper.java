@@ -5,12 +5,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface HamMapper {
     public List<Goods> goodslist();
-
-    public List<Post> postList();   // 포스트 전체 불러오기
 
     public void userInsert(Users dto);  // 회원가입
 
@@ -24,5 +23,17 @@ public interface HamMapper {
 
     public void basketInsert(Basket dto);
 
+    public void basketDelete(int order_id);
+
     public List<JoinBasket> basketList(String id);
+
+    List<Map<String, Object>> getRollupResults(String userId); // RollUp 결과
+
+    void insertPost(Post post); // post insert
+
+    public List<Post> postList();   // 포스트 전체 불러오기
+
+    public Post showPost(int id);   // 포스트 하나 보기
+
+    public void updatePost(Post post);
 }

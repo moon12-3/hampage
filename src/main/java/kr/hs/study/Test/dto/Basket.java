@@ -9,5 +9,4 @@ public class Basket {
     String user_id;
     int price;
     int order_cnt;
-    char order_ok = '0';
 }

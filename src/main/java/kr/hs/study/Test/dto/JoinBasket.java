@@ -9,5 +9,4 @@ public class JoinBasket {
     String goods_name;
     String price;
     String category;
-    char order_ok;
 }

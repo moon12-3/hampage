@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.hs.study.Test.mapper.HamMapper">
     <select id="goodslist" resultType="kr.hs.study.Test.dto.Goods">
-        select * from goods
+        select * from goods_view
     </select>
     <select id="login" resultType="kr.hs.study.Test.dto.Users">
         select * from users where user_id=#{id} and user_pass=#{pass}
@@ -13,9 +13,6 @@
     <insert id="userInsert" parameterType="kr.hs.study.Test.dto.Users">
         insert into users(user_id, user_pass, user_name, user_email, tel) values(#{user_id}, #{user_pass}, #{user_name}, #{user_email}, #{tel})
     </insert>
-    <select id="postList" resultType="kr.hs.study.Test.dto.Post">
-        select * from post order by post_id DESC
-    </select>
 
     <select id="find" resultType="kr.hs.study.Test.dto.Goods">
         select * from goods where goods_name like '%' || #{name} || '%'
@@ -24,14 +21,36 @@
         select * from goods where goods_id = #{id}
     </select>
     <insert id="basketInsert" parameterType="kr.hs.study.Test.dto.Basket">
-        <selectKey keyProperty="order_id" resultType="int" order="BEFORE">
-            select basket_id.nextval from dual
-        </selectKey>
-        INSERT INTO basket (order_id, goods_id, user_id, price, order_cnt)
-        values(#{order_id}, #{goods_id}, #{user_id}, #{price}, #{order_cnt})
+
+        INSERT INTO basket (goods_id, user_id, price, order_cnt)
+        values(#{goods_id}, #{user_id}, #{price}, #{order_cnt})
     </insert>
     
     <select id="basketList" resultType="kr.hs.study.Test.dto.JoinBasket">
-        select order_id, goods_url, goods_name, b.price, category, order_ok from basket b join goods using(goods_id) where user_id=#{id}
+        select order_id, goods_url, goods_name, b.price, category from basket b join goods using(goods_id) where user_id=#{id} order by order_id DESC
     </select>
+    <select id="getRollupResults" resultType="map">
+        SELECT category, goods_name, SUM(b.price) as total_price, SUM(order_cnt) as total_order_cnt
+        FROM basket b JOIN goods USING(goods_id)
+        WHERE user_id = #{userId}
+        GROUP BY ROLLUP(category, goods_name)
+    </select>
+    <delete id="basketDelete" parameterType="kr.hs.study.Test.dto.Basket">
+        delete from basket where order_id=#{order_id}
+    </delete>
+
+    <insert id="insertPost" parameterType="kr.hs.study.Test.dto.Post">
+        INSERT INTO post (post_date, user_id, post_title, post_content)
+        VALUES (#{post_date}, #{user_id}, #{post_title}, #{post_content})
+    </insert>
+    <select id="postList" resultType="kr.hs.study.Test.dto.Post">
+        select * from post order by post_id DESC
+    </select>
+
+    <select id="showPost" resultType="kr.hs.study.Test.dto.Post">
+        select * from post where post_id=#{id}
+    </select>
+    <update id="updatePost" parameterType="kr.hs.study.Test.dto.Post">
+        update post set post_title=#{post_title}, post_content=#{post_content} where post_id=#{post_id}
+    </update>
 </mapper>

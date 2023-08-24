@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/store.css">
 </head>
 <body>
-<th:block th:replace="/fragments/header :: headerFragment"/>
+<th:block th:replace="/fragments/header :: headerFragment(${user})"/>
 <div id="s-container">
     <form method="post" action="/find">
         <input name="fname" type="text" placeholder="상품명을 검색하세요" id="s-content">
@@ -16,11 +16,13 @@
 </div>
 <div id="first">
     <div class="f-container" th:each="goods:${list}">
+        <a th:href="@{'/show/'+${goods.goods_id}}">
         <div class="g-img" th:style="'background-image:url('+ @{${goods.goods_url}} +');'"></div>
         <div class="g-text">
             <div th:text="${goods.goods_name}"></div>
             <div class="price" th:text="${goods.price}"></div>
         </div>
+        </a>
     </div>
 </div>
 </body>

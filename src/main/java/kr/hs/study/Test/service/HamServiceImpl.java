@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class HamServiceImpl implements HamService {
@@ -49,5 +50,35 @@ public class HamServiceImpl implements HamService {
     @Override
     public List<JoinBasket> basketList(String id) {
         return mapper.basketList(id);
+    }
+
+    @Override
+    public void basketDelete(int order_id) {
+        mapper.basketDelete(order_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getRollupResults(String userId) {
+        return mapper.getRollupResults(userId);
+    }
+
+    @Override
+    public void insertPost(Post post) {
+        mapper.insertPost(post);
+    }
+
+    @Override
+    public List<Post> postList() {
+        return mapper.postList();
+    }
+
+    @Override
+    public Post showPost(int id) {
+        return mapper.showPost(id);
+    }
+
+    @Override
+    public void updatePost(Post post) {
+        mapper.updatePost(post);
     }
 }

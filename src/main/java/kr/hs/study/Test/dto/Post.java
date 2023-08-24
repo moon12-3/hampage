@@ -10,9 +10,7 @@ public class Post {
     int post_id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date post_date;
-    boolean post_ok;
     String user_id;
     String post_title;
     String post_content;
-    String post_url;
 }

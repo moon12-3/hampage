@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HomeController {
@@ -38,6 +40,8 @@ public class HomeController {
     @GetMapping("/")
     String home(Model model, HttpServletRequest req) {
         model.addAttribute("user", check_login(req));
+        List<Post> p = service.postList();
+        model.addAttribute("post", p);
         return "index";
     }
 
@@ -59,10 +63,11 @@ public class HomeController {
     }
 
     @PostMapping("/find")
-    String find(@RequestParam String fname, Model model) {
+    String find(@RequestParam String fname, Model model, HttpServletRequest req) {
         List<Goods> list = service.find(fname);
         model.addAttribute("name", fname);
         model.addAttribute("list", list);
+        model.addAttribute("user", check_login(req));
         return "find";
     }
 
@@ -78,9 +83,68 @@ public class HomeController {
     String basket(Model model, HttpServletRequest req) {
         Users user = check_login(req);
         List<JoinBasket> b = service.basketList(user.getUser_id());
+        if(b.size()==0) b = null;
         model.addAttribute("user", check_login(req));
         model.addAttribute("basket",b);
-        System.out.println(b.get(0));
         return "store/basket";
+    }
+
+    @GetMapping("/basket/delete/{id}")
+    String b_delete(@PathVariable int id) {
+        service.basketDelete(id);
+        return "redirect:/basket";
+    }
+
+    @GetMapping("/buy")
+    String buy(Model model, HttpServletRequest req) {
+        List<Map<String, Object>> rollupResults = service.getRollupResults(check_login(req).getUser_id());
+        System.out.println(rollupResults.get(0));
+        model.addAttribute("rollupResults", rollupResults);
+        return "store/buy";
+    }
+
+    @GetMapping("/write")
+    String write(HttpServletRequest req) {
+        if(check_login(req)==null) return "redirect:/login";
+        return "write";
+    }
+
+    @PostMapping("/write")
+    String write2(@RequestParam String post_title, @RequestParam String post_content, HttpServletRequest req) {
+        Post p = new Post();
+        p.setUser_id(check_login(req).getUser_id());
+        p.setPost_title(post_title);
+        p.setPost_content(post_content);
+        p.setPost_date(new Date());
+        service.insertPost(p);
+        return "redirect:/";
+    }
+
+    @GetMapping("/view/{id}")
+    String view(@PathVariable int id, HttpServletRequest req, Model model) {
+        Users user = check_login(req);
+        if(user==null) return "redirect:/login";
+        model.addAttribute("userid", user.getUser_id());
+        Post post = service.showPost(id);
+        model.addAttribute("view", post);
+        return "view";
+    }
+
+    @GetMapping("/view/update/{id}")
+    String postUpdate(@PathVariable int id, Model model) {
+        Post post = service.showPost(id);
+        model.addAttribute("post", post);
+        return "update";
+    }
+
+    @PostMapping("/update")
+    String postUpdate2(@RequestParam String post_title,
+                       @RequestParam String post_content,
+                       @RequestParam int post_id) {
+        Post post = service.showPost(post_id);
+        post.setPost_content(post_content);
+        post.setPost_title(post_title);
+        service.updatePost(post);
+        return "redirect:/";
     }
 }
