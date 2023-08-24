@@ -1,9 +1,6 @@
 package kr.hs.study.Test.controller;
 
-import kr.hs.study.Test.dto.Goods;
-import kr.hs.study.Test.dto.JoinBasket;
-import kr.hs.study.Test.dto.Post;
-import kr.hs.study.Test.dto.Users;
+import kr.hs.study.Test.dto.*;
 import kr.hs.study.Test.service.HamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +39,7 @@ public class HomeController {
         model.addAttribute("user", check_login(req));
         List<Post> p = service.postList();
         model.addAttribute("post", p);
+        model.addAttribute("max_user", service.maxPostUser());
         return "index";
     }
 
@@ -146,5 +144,24 @@ public class HomeController {
         post.setPost_title(post_title);
         service.updatePost(post);
         return "redirect:/";
+    }
+
+    @GetMapping("/chat/{id}")
+    String chat(@PathVariable int id, Model model) {
+        model.addAttribute("post_id", id);
+        List<Chat> chats = service.chatList(id);
+        model.addAttribute("chats", chats);
+        return "chat";
+    }
+
+    @PostMapping("/chat")
+    String chat2(@RequestParam int post_id, @RequestParam String content, HttpServletRequest req) {
+        Users user = check_login(req);
+        Chat chat = new Chat();
+        chat.setPost_id(post_id);
+        chat.setUser_id(user.getUser_id());
+        chat.setChat_content(content);
+        service.insertChat(chat);
+        return "redirect:/chat/"+post_id;
     }
 }

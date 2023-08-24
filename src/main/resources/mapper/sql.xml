@@ -27,7 +27,9 @@
     </insert>
     
     <select id="basketList" resultType="kr.hs.study.Test.dto.JoinBasket">
-        select order_id, goods_url, goods_name, b.price, category from basket b join goods using(goods_id) where user_id=#{id} order by order_id DESC
+        select order_id, goods_url, goods_name, b.price, category
+        from basket b join goods using(goods_id)
+        where user_id=#{id} order by order_id DESC
     </select>
     <select id="getRollupResults" resultType="map">
         SELECT category, goods_name, SUM(b.price) as total_price, SUM(order_cnt) as total_order_cnt
@@ -53,4 +55,16 @@
     <update id="updatePost" parameterType="kr.hs.study.Test.dto.Post">
         update post set post_title=#{post_title}, post_content=#{post_content} where post_id=#{post_id}
     </update>
+    <select id="chatList" resultType="kr.hs.study.Test.dto.Chat">
+        select * from chat where post_id=#{id} order by chat_id
+    </select>
+    <insert id="insertChat" parameterType="kr.hs.study.Test.dto.Chat">
+        insert into chat(post_id, user_id, chat_content) values(#{post_id}, #{user_id}, #{chat_content})
+    </insert>
+    <select id="maxPostUser" resultType="String">
+        SELECT user_id
+        FROM users JOIN post USING(user_id)
+        GROUP BY user_id
+        HAVING COUNT(*)=(SELECT MAX(COUNT(*)) FROM users JOIN post USING(user_id) GROUP BY user_id HAVING COUNT(*)!=0)
+    </select>
 </mapper>

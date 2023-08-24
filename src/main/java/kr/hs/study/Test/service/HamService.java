@@ -31,4 +31,10 @@ public interface HamService {
     public Post showPost(int id);   // 포스트 하나 보기
 
     public void updatePost(Post post);
+
+    public List<Chat> chatList(int id); // 댓글 리스트
+
+    public void insertChat(Chat chat);  // 댓글 입력
+
+    public List<String> maxPostUser();  // 가장 많은 포스트를 작성한 유저
 }

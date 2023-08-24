@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/chat.css">
+</head>
+<body>
+<div id="c-content">
+    <a th:href="@{'/view/' + ${post_id}}">게시글로 돌아가기</a>
+  <div id="ctitle">의견 작성하기</div>
+  <form method="post" action="/chat">
+      <input type="hidden" th:value="${post_id}" name="post_id">
+      <textarea
+              class="ta"
+              placeholder="당신의 의견을 마음껏 작성해주세요"
+              name="content">
+      </textarea>
+      <div class="twrap">
+        <div>
+          <span class="cnt" id="counter">0</span>
+          <span class="cnt">/700</span>
+        </div>
+        <button type="submit" class="subtn">등록</button>
+      </div>
+  </form>
+  <div th:each="c:${chats}">
+    <div class="content">
+      <svg>
+        <circle cx="29" cy="29" r="29" fill="#306754"></circle>
+      </svg>
+      <div class="cText">
+        <div class="username" th:text="${c.user_id}"></div>
+        <div></div>
+        <div class="cContent" th:text="${c.chat_content}"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

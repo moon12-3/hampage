@@ -37,6 +37,11 @@
     </div>
 </div>
 <a href="/write" class="on">글 작성하기</a>
+<br/>
+<h3>가장 많은 포스트의 유저</h3>
+<div th:each="m:${max_user}">
+    <span th:text="${m}+'  '"></span>
+</div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </html>

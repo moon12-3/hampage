@@ -81,4 +81,19 @@ public class HamServiceImpl implements HamService {
     public void updatePost(Post post) {
         mapper.updatePost(post);
     }
+
+    @Override
+    public List<Chat> chatList(int id) {
+        return mapper.chatList(id);
+    }
+
+    @Override
+    public void insertChat(Chat chat) {
+        mapper.insertChat(chat);
+    }
+
+    @Override
+    public List<String> maxPostUser() {
+        return mapper.maxPostUser();
+    }
 }
