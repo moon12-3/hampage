@@ -32,6 +32,8 @@ public interface HamService {
 
     public void updatePost(Post post);
 
+    public void deletePost(int id);
+
     public List<Chat> chatList(int id); // 댓글 리스트
 
     public void insertChat(Chat chat);  // 댓글 입력

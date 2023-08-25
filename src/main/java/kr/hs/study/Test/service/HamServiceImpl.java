@@ -83,6 +83,11 @@ public class HamServiceImpl implements HamService {
     }
 
     @Override
+    public void deletePost(int id) {
+        mapper.deletePost(id);
+    }
+
+    @Override
     public List<Chat> chatList(int id) {
         return mapper.chatList(id);
     }

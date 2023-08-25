@@ -55,6 +55,9 @@
     <update id="updatePost" parameterType="kr.hs.study.Test.dto.Post">
         update post set post_title=#{post_title}, post_content=#{post_content} where post_id=#{post_id}
     </update>
+    <delete id="deletePost" parameterType="int">
+        delete from post where post_id=#{id}
+    </delete>
     <select id="chatList" resultType="kr.hs.study.Test.dto.Chat">
         select * from chat where post_id=#{id} order by chat_id DESC
     </select>

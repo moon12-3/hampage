@@ -36,6 +36,8 @@ public interface HamMapper {
     public Post showPost(int id);   // 포스트 하나 보기
 
     public void updatePost(Post post);
+
+    public void deletePost(int id);
     
     public List<Chat> chatList(int id); // 댓글 리스트
 

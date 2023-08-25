@@ -135,6 +135,12 @@ public class HomeController {
         return "update";
     }
 
+    @GetMapping("/view/delete/{id}")
+    String postDelete(@PathVariable int id) {
+        service.deletePost(id);
+        return "redirect:/";
+    }
+
     @PostMapping("/update")
     String postUpdate2(@RequestParam String post_title,
                        @RequestParam String post_content,

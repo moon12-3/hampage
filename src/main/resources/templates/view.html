@@ -37,6 +37,7 @@
             <a href="/" class="on">목록</a>
             <th:block th:if="${userid == view.user_id}">
                 <a th:href="@{'update/' + ${view.post_id}}">수정</a>
+                <a th:href="@{'delete/' + ${view.post_id}}">삭제</a>
             </th:block>
             <a th:href="@{'/chat/' + ${view.post_id}}" class="on">댓글</a>
         </div>
